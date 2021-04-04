@@ -14,6 +14,8 @@
 .gitignore
 
 load_tests
+generated
+terraform
 
 node_modules
 #!include:.gitignore
