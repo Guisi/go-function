@@ -1,6 +1,4 @@
-variable "project" {
-  default = "guisi-portfolio"
-}
+variable "project" {}
 
 terraform {
   required_providers {
