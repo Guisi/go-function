@@ -5,8 +5,8 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/Guisi/go-function/model"
 	"os"
+	"time"
 )
 
 // Clients reused between function invocations.
@@ -18,6 +18,12 @@ var (
 // See https://cloud.google.com/functions/docs/calling/pubsub.
 type PubSubMessage struct {
 	Data []byte `json:"data"`
+}
+
+type Post struct {
+	Id           string    `json:"id"`
+	Message      string    `json:"message"`
+	CreationDate time.Time `json:"creationDate"`
 }
 
 // initializeClients creates translateClient and firestoreClient if they haven't been created yet.
@@ -42,7 +48,7 @@ func initializeClients() error {
 func SavePost(ctx context.Context, m PubSubMessage) error {
 	initializeClients()
 
-	post := model.Post{}
+	post := Post{}
 	if err := json.Unmarshal(m.Data, &post); err != nil {
 		return fmt.Errorf("json.Unmarshal: %v", err)
 	}
